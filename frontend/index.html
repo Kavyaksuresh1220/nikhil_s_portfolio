@@ -8,6 +8,17 @@
     <meta name="description" content="Portfolio of Nikhil S, a UI/UX designer blending storytelling, motion and intuitive design. Every screen designed to feel alive." />
   </head>
   <body>
+    <script>
+      // Set the theme before paint to avoid a flash of the wrong theme.
+      (function () {
+        try {
+          var t = localStorage.getItem("theme") || "dark";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

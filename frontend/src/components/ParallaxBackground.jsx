@@ -39,7 +39,7 @@ export default function ParallaxBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-ink">
       {/* base radial wash */}
-      <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-20%,#141a3a_0%,#05060a_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-20%,var(--c-aurora-top)_0%,var(--c-aurora-bottom)_55%)]" />
 
       {/* aurora blob 1 */}
       <motion.div
@@ -59,12 +59,14 @@ export default function ParallaxBackground() {
 
       {/* grid + vignette */}
       <div className="absolute inset-0 grid-overlay opacity-60 [mask-image:radial-gradient(100%_100%_at_50%_0%,#000_20%,transparent_80%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,#05060a_10%,transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,var(--c-bg)_10%,transparent_60%)]" />
 
       {/* film grain */}
       <div
-        className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
+        className="absolute inset-0"
         style={{
+          opacity: "var(--c-grain)",
+          mixBlendMode: "var(--c-grain-blend)",
           backgroundImage:
             "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         }}

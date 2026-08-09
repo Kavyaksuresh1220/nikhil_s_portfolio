@@ -27,6 +27,7 @@ function ProjectCard({ p, index }) {
     <Reveal delay={index * 0.08}>
       <motion.article
         ref={ref}
+        data-cursor="View"
         onMouseMove={onMove}
         onMouseLeave={onLeave}
         style={{ rotateX: srx, rotateY: sry, transformPerspective: 1000 }}
@@ -63,7 +64,7 @@ function ProjectCard({ p, index }) {
               {p.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-lg bg-white/5 px-3 py-1 text-xs text-mist/70 ring-1 ring-white/10"
+                  className="rounded-lg bg-veil/5 px-3 py-1 text-xs text-mist/70 ring-1 ring-veil/10"
                 >
                   {t}
                 </span>
@@ -71,7 +72,7 @@ function ProjectCard({ p, index }) {
             </div>
           </div>
 
-          <div className="relative mt-6 flex items-center gap-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="relative mt-6 flex items-center gap-2 text-sm font-medium text-mist opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             View case study
             <Icon name="arrowUpRight" size={16} />
           </div>
@@ -81,9 +82,9 @@ function ProjectCard({ p, index }) {
   );
 }
 
-export default function Works() {
+export function WorkSection() {
   return (
-    <div className="px-6 pt-36">
+    <section id="work" className="relative px-6 py-24 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand-400">
@@ -104,6 +105,14 @@ export default function Works() {
           ))}
         </div>
       </div>
+    </section>
+  );
+}
+
+export default function Works() {
+  return (
+    <div className="pt-24">
+      <WorkSection />
     </div>
   );
 }

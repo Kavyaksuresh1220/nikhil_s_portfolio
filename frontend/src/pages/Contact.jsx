@@ -4,7 +4,7 @@ import Reveal from "../components/Reveal";
 import Icon from "../components/Icon";
 import { profile } from "../data";
 
-export default function Contact() {
+export function ContactSection() {
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
@@ -19,10 +19,10 @@ export default function Contact() {
   };
 
   const field =
-    "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-mist placeholder:text-mist/30 outline-none transition-colors focus:border-brand-400 focus:bg-white/[0.06]";
+    "w-full rounded-xl border border-veil/10 bg-veil/[0.03] px-4 py-3 text-mist placeholder:text-mist/30 outline-none transition-colors focus:border-brand-400 focus:bg-veil/[0.06]";
 
   return (
-    <div className="px-6 pt-36">
+    <section id="contact" className="relative px-6 py-24 sm:py-28">
       <div className="mx-auto max-w-5xl">
         <Reveal>
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-brand-400">
@@ -45,9 +45,9 @@ export default function Contact() {
 
               <a
                 href={`mailto:${profile.email}`}
-                className="flex items-center gap-3 rounded-2xl glass p-5 transition-colors hover:bg-white/[0.07]"
+                className="flex items-center gap-3 rounded-2xl glass p-5 transition-colors hover:bg-veil/[0.07]"
               >
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand-500/20 to-accent-500/20 text-brand-300 ring-1 ring-white/10">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand-500/20 to-accent-500/20 text-brand-300 ring-1 ring-veil/10">
                   <Icon name="mail" size={20} />
                 </span>
                 <span>
@@ -57,7 +57,7 @@ export default function Contact() {
               </a>
 
               <div className="flex items-center gap-3 rounded-2xl glass p-5">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand-500/20 to-accent-500/20 text-brand-300 ring-1 ring-white/10">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand-500/20 to-accent-500/20 text-brand-300 ring-1 ring-veil/10">
                   <Icon name="pin" size={20} />
                 </span>
                 <span>
@@ -73,7 +73,7 @@ export default function Contact() {
                     href={s.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-full glass px-4 py-2 text-sm text-mist/70 transition-colors hover:text-white"
+                    className="rounded-full glass px-4 py-2 text-sm text-mist/70 transition-colors hover:text-mist"
                   >
                     {s.label}
                   </a>
@@ -145,6 +145,14 @@ export default function Contact() {
           </Reveal>
         </div>
       </div>
+    </section>
+  );
+}
+
+export default function Contact() {
+  return (
+    <div className="pt-24">
+      <ContactSection />
     </div>
   );
 }

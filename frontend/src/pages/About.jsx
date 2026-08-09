@@ -10,7 +10,7 @@ function SkillBar({ name, level, delay }) {
         <span className="font-medium">{name}</span>
         <span className="text-mist/50">{level}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-white/8">
+      <div className="h-2 overflow-hidden rounded-full bg-veil/8">
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
@@ -23,9 +23,9 @@ function SkillBar({ name, level, delay }) {
   );
 }
 
-export default function About() {
+export function AboutSection() {
   return (
-    <div className="px-6 pt-36">
+    <section id="about" className="relative px-6 py-24 sm:py-28">
       <div className="mx-auto max-w-5xl">
         {/* Intro */}
         <Reveal>
@@ -55,7 +55,7 @@ export default function About() {
               </span>
               <a
                 href={`mailto:${profile.email}`}
-                className="flex items-center gap-2 text-mist/70 transition-colors hover:text-white"
+                className="flex items-center gap-2 text-mist/70 transition-colors hover:text-mist"
               >
                 <Icon name="mail" size={16} className="text-brand-400" />
                 {profile.email}
@@ -103,7 +103,7 @@ export default function About() {
           {/* Experience timeline */}
           <Reveal delay={0.1}>
             <h2 className="mb-8 font-display text-3xl font-bold">Experience</h2>
-            <div className="relative space-y-8 border-l border-white/10 pl-8">
+            <div className="relative space-y-8 border-l border-veil/10 pl-8">
               {experience.map((e) => (
                 <div key={e.role} className="relative">
                   <span className="absolute -left-[2.4rem] top-1.5 grid h-4 w-4 place-items-center rounded-full bg-gradient-to-br from-brand-500 to-accent-500 ring-4 ring-ink" />
@@ -121,6 +121,14 @@ export default function About() {
           </Reveal>
         </div>
       </div>
+    </section>
+  );
+}
+
+export default function About() {
+  return (
+    <div className="pt-24">
+      <AboutSection />
     </div>
   );
 }

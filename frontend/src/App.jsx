@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -6,20 +5,14 @@ import ParallaxBackground from "./components/ParallaxBackground";
 import CursorGlow from "./components/CursorGlow";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Preloader from "./components/Preloader";
+import ScrollProgress from "./components/ScrollProgress";
+import SmoothScroll from "./components/SmoothScroll";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Works from "./pages/Works";
 import Contact from "./pages/Contact";
-
-// Scroll to top whenever the route changes
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [pathname]);
-  return null;
-}
 
 // Wraps each page in an enter/exit transition
 function Page({ children }) {
@@ -40,10 +33,12 @@ export default function App() {
 
   return (
     <>
+      <Preloader />
       <ParallaxBackground />
       <CursorGlow />
+      <ScrollProgress />
       <Navbar />
-      <ScrollToTop />
+      <SmoothScroll />
 
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
