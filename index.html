@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nikhil S — UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Nikhil S, a UI/UX designer blending storytelling, motion and intuitive design. Every screen designed to feel alive." />
+
+    <!-- Editorial type: geometric grotesk for the display wordmark,
+         high-contrast serif italic for the "ui/ux" line. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      // Set the theme before paint to avoid a flash of the wrong theme.
+      // Light ("paper") is the default for the editorial layout.
+      (function () {
+        try {
+          var t = localStorage.getItem("theme") || "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

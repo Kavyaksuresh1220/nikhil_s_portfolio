@@ -1,0 +1,668 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", "Space Grotesk", sans-serif;
+  /* Oversized editorial wordmark + the high-contrast serif italic line */
+  --font-hero: "Poppins", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-editorial: "Playfair Display", "Times New Roman", serif;
+
+  /* Runtime-flippable semantic colors (see :root overrides below) */
+  --color-ink: var(--c-bg);
+  --color-ink-soft: var(--c-bg-soft);
+  --color-mist: var(--c-fg);
+  --color-veil: var(--c-veil);
+
+  --color-brand-50: #eef2ff;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+
+  --color-punch-400: #fb7185;
+  --color-punch-500: #f43f5e;
+
+  /* Editorial green — the "Get in Touch" pill accent */
+  --color-leaf-300: #a7dda2;
+  --color-leaf-400: #86cd7f;
+  --color-leaf-500: #6fc06b;
+  --color-leaf-600: #57a854;
+
+  /* Statement accent colours (also exposed as --pop-* below) */
+  --color-pop-blue: #2b2fe8;
+  --color-pop-red: #f0241c;
+  --color-pop-green: #6fc06b;
+  --color-pop-yellow: #e0b60f;
+  --color-pop-orange: #f08a1f;
+  --color-pop-purple: #7c3aed;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: local("Space Grotesk");
+}
+
+/* Mergola — the hero "ui/ux" line. Self-hosted: drop the font files into
+   frontend/public/fonts/ so they resolve at /fonts/… (any of the three
+   formats works; woff2 preferred). Until then it falls back to the serif. */
+@font-face {
+  font-family: "Mergola";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Mergola"), local("Mergola Regular"),
+    url("/fonts/Mergola-Regular.woff") format("woff"),
+    url("/fonts/Mergola-Regular.ttf") format("truetype");
+}
+
+/* ── Theme tokens ─────────────────────────────────────────────
+   Dark is the default. [data-theme="light"] is a warm "paper" theme. */
+:root {
+  color-scheme: dark;
+
+  --c-bg: #05060a;
+  --c-bg-soft: #0b0d16;
+  --c-fg: #e7e9f5;
+  --c-veil: #ffffff; /* overlay tint used with opacity utilities */
+
+  --c-glass-bg: rgba(255, 255, 255, 0.04);
+  --c-glass-border: rgba(255, 255, 255, 0.08);
+  --c-glass-blur: 14px;
+
+  --c-aurora-top: #141a3a;
+  --c-aurora-bottom: #05060a;
+  --c-grid: rgba(255, 255, 255, 0.035);
+  --c-grain: 0.035;
+  --c-grain-blend: overlay;
+
+  --c-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Statement accents, referenced as var(--pop-<name>) from JS */
+  --pop-blue: #6b74ff;
+  --pop-red: #ff6a5e;
+  --pop-green: #6fc06b;
+  --pop-yellow: #f0cf4a;
+  --pop-orange: #ffa34d;
+  --pop-purple: #a78bfa;
+
+  --c-band-muted: rgba(231, 233, 245, 0.14);
+  --c-band-tint: #12141c;
+
+  /* Editorial hero — dark inversion of the paper layout */
+  --hero-bg: #0d0d0c;
+  --hero-fg: #f4f3ea;
+  --hero-muted: #7c7c74;
+  --hero-rail-bg: #f4f3ea;
+  --hero-rail-fg: #0d0d0c;
+  --hero-line: rgba(244, 243, 234, 0.4);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --c-bg: #f4f3ea; /* cream paper */
+  --c-bg-soft: #faf9f2; /* lighter sheet */
+  --c-fg: #0f0f0d; /* near-black */
+  --c-veil: #17170f; /* dark overlay tint */
+
+  --c-glass-bg: rgba(255, 255, 252, 0.6);
+  --c-glass-border: rgba(15, 15, 13, 0.1);
+  --c-glass-blur: 12px;
+
+  --c-aurora-top: #eceada;
+  --c-aurora-bottom: #f4f3ea;
+  --c-grid: rgba(15, 15, 13, 0.04);
+  --c-grain: 0.05;
+  --c-grain-blend: multiply;
+
+  --c-shadow: rgba(60, 60, 40, 0.2);
+
+  --pop-blue: #2b2fe8;
+  --pop-red: #f0241c;
+  --pop-green: #6fc06b;
+  --pop-yellow: #e0b60f;
+  --pop-orange: #f08a1f;
+  --pop-purple: #7c3aed;
+
+  --c-band-muted: rgba(15, 15, 13, 0.16);
+  --c-band-tint: #eae8dc;
+
+  /* Editorial hero — the reference cream / black / green */
+  --hero-bg: #f4f3ea;
+  --hero-fg: #0b0b0a;
+  --hero-muted: #a2a29a;
+  --hero-rail-bg: #121210;
+  --hero-rail-fg: #f4f3ea;
+  --hero-line: rgba(11, 11, 10, 0.5);
+}
+
+body {
+  margin: 0;
+  background-color: var(--c-bg);
+  color: var(--c-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Hide the native cursor on precise-pointer devices so the custom
+   cursor takes over; keep it everywhere else for accessibility. */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  a,
+  button,
+  [data-cursor] {
+    cursor: none;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--c-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-brand-600), var(--color-accent-500));
+  border-radius: 999px;
+  border: 2px solid var(--c-bg);
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: var(--c-fg);
+}
+
+/* Utility animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-24px) translateX(12px); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(28px) translateX(-16px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
+.animate-float-slower { animation: float-slower 16s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 40s linear infinite; }
+.animate-marquee { animation: marquee 30s linear infinite; }
+.animate-marquee-reverse { animation: marquee-reverse 34s linear infinite; }
+
+/* Pause marquees while hovered for a tactile feel */
+.marquee-track:hover { animation-play-state: paused; }
+
+.text-gradient {
+  background: linear-gradient(120deg, var(--color-brand-500) 0%, var(--color-accent-500) 45%, var(--color-punch-500) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 8s ease infinite;
+}
+
+.glass {
+  background: var(--c-glass-bg);
+  border: 1px solid var(--c-glass-border);
+  backdrop-filter: blur(var(--c-glass-blur));
+}
+
+.grid-overlay {
+  background-image:
+    linear-gradient(var(--c-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* ── Paper-cut layered sheets ────────────────────────────────── */
+.sheet {
+  position: relative;
+  border-radius: 2rem 2rem 0 0;
+  background: var(--c-bg-soft);
+  box-shadow: 0 -26px 60px -32px var(--c-shadow);
+}
+.sheet + .sheet {
+  margin-top: -2rem;
+}
+.sheet-base {
+  background: var(--c-bg);
+}
+/* the deckled paper edge sits on top of each sheet, filled with its color */
+.paper-edge {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  width: 100%;
+  height: 38px;
+  transform: translateY(-99%);
+  color: var(--c-bg-soft);
+  pointer-events: none;
+}
+.sheet-base .paper-edge {
+  color: var(--c-bg);
+}
+
+/* ── Editorial hero ──────────────────────────────────────────── */
+.hero-editorial {
+  position: relative;
+  background: var(--hero-bg);
+  color: var(--hero-fg);
+  overflow: hidden;
+}
+
+/* Vertical rails with repeating word, inset from the viewport edges */
+.hero-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 44px;
+  overflow: hidden;
+  background: var(--hero-rail-bg);
+  color: var(--hero-rail-fg);
+  z-index: 1;
+}
+.hero-rail-left { left: 1.75rem; }
+.hero-rail-right { right: 1.75rem; }
+
+@media (max-width: 640px) {
+  .hero-rail { width: 28px; }
+  .hero-rail-left { left: 0.5rem; }
+  .hero-rail-right { right: 0.5rem; }
+}
+
+.hero-rail-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  will-change: transform;
+  animation: rail-scroll 34s linear infinite;
+}
+.hero-rail-right .hero-rail-track {
+  animation-name: rail-scroll-reverse;
+}
+@keyframes rail-scroll {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes rail-scroll-reverse {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+
+.hero-rail-word {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding: 1.25rem 0;
+  font-family: var(--font-hero);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .hero-rail-word { font-size: 0.7rem; padding: 0.9rem 0; }
+}
+
+/* The oversized wordmark */
+.hero-wordmark {
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 15.5vw, 13rem);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  color: var(--hero-fg);
+}
+
+/* The "ui/ux" line that sits above the wordmark — Mergola Regular */
+.hero-serif {
+  font-family: "Mergola", var(--font-editorial);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 11vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: var(--hero-muted);
+}
+
+/* Pills */
+.pill-green {
+  background: var(--color-leaf-500);
+  color: #fff;
+  border-radius: 999px;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+.pill-green:hover { background: var(--color-leaf-600); }
+
+.pill-outline {
+  border: 1px solid var(--hero-line);
+  color: var(--hero-fg);
+  border-radius: 999px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.pill-outline:hover {
+  background: var(--hero-fg);
+  color: var(--hero-bg);
+}
+
+/* ── Editorial page system ───────────────────────────────────── */
+
+/* Opaque sheet so the aurora backdrop stays behind the flat layout */
+.page-editorial {
+  position: relative;
+  z-index: 0;
+  background: var(--c-bg);
+}
+
+.band {
+  position: relative;
+  padding: 6rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .band { padding: 8rem 2.5rem; }
+}
+
+/* Stacked "NIK / HIL." mark in the band's top-left corner */
+.band-mark {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: 0.6rem;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-fg);
+}
+
+/* Big muted title, right-aligned, may contain \n via pre-line */
+.section-title {
+  margin: 0.5rem 0 0;
+  text-align: right;
+  white-space: pre-line;
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4.2vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--c-band-muted);
+}
+
+/* Oversized statement heading */
+.statement {
+  margin: 0;
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 6.4vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--c-fg);
+}
+/* Per-line fade-up reveal (kept simple so text is never left hidden). */
+.statement-line {
+  display: block;
+  position: relative;
+}
+.statement-line-inner {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Floating portrait bubble that trails the first line */
+.portrait-chip {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.5em;
+  width: clamp(2.25rem, 4.2vw, 3.75rem);
+  height: clamp(2.25rem, 4.2vw, 3.75rem);
+  border-radius: 999px;
+  overflow: hidden;
+  transform: translateY(-0.28em);
+  box-shadow: 0 10px 30px -14px var(--c-shadow);
+}
+.portrait-chip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Key skills: layered colour cards ────────────────────────── */
+.skill-stack {
+  position: relative;
+  margin-inline: auto;
+  width: 100%;
+  max-width: 24rem;
+  aspect-ratio: 1 / 1;
+}
+.stack-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.75rem;
+  display: block;
+}
+.stack-front {
+  z-index: 5;
+  background: var(--color-pop-purple);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.25rem;
+  box-shadow: 0 34px 70px -32px var(--c-shadow);
+}
+.dino-icon {
+  color: #7ed957;
+  margin-bottom: 1.5rem;
+  image-rendering: pixelated;
+}
+.stack-front h3 {
+  margin: 0;
+  white-space: pre-line;
+  font-weight: 700;
+  font-size: clamp(1.15rem, 2.3vw, 1.6rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-pop-yellow);
+}
+.stack-front p {
+  margin: 1rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* ── Armoury tool rail ───────────────────────────────────────── */
+.armoury-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  border-radius: 999px;
+  background: var(--c-band-tint);
+  padding: 0.75rem 1.5rem;
+}
+.armoury-label {
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-fg);
+}
+.armoury-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tool-chip {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.25s ease;
+}
+.tool-chip:hover { transform: translateY(-3px); }
+
+/* Round chevron that closes the armoury rail */
+.armoury-next {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-left: 0.25rem;
+  border-radius: 999px;
+  background: var(--color-leaf-500);
+  color: #fff;
+  transition: transform 0.25s ease;
+}
+.armoury-next:hover { transform: translateX(3px); }
+
+/* ── Flat project cards ──────────────────────────────────────── */
+.work-card {
+  display: block;
+  height: 100%;
+  border-radius: 1.75rem;
+  background: var(--c-band-tint);
+  padding: 0.75rem;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.work-card:hover { transform: translateY(-6px); }
+.work-card figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: var(--c-bg);
+}
+.work-card img {
+  display: block;
+  width: 100%;
+  height: 13rem;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.work-card:hover img { transform: scale(1.06); }
+
+/* ── Design deep dive (sticky-pinned showpiece) ──────────────── */
+.deepdive-wrap {
+  position: relative;
+  height: 185vh; /* extra scroll length while the section is pinned */
+}
+.deepdive-pin {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 1.5rem;
+}
+@media (min-width: 768px) {
+  .deepdive-pin { padding: 8rem 2.5rem; }
+}
+@media (max-width: 767px) {
+  /* Pinning eats vertical space on small screens — shorten the runway */
+  .deepdive-wrap { height: 140vh; }
+}
+
+.deepdive-shot {
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background: var(--c-band-tint);
+}
+.deepdive-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 26rem;
+  object-fit: cover;
+}
+.deepdive-title {
+  margin: 0;
+  font-family: var(--font-hero);
+  font-weight: 700;
+  font-size: clamp(3rem, 11vw, 8.5rem);
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--c-fg);
+}
+.deepdive-sub {
+  margin: 0.75rem 0 0;
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-fg);
+  opacity: 0.7;
+}
+
+/* ── Flat form fields ────────────────────────────────────────── */
+.field-editorial {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--c-band-muted);
+  background: transparent;
+  padding: 0.85rem 1rem;
+  color: var(--c-fg);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.field-editorial::placeholder { color: var(--c-fg); opacity: 0.35; }
+.field-editorial:focus {
+  border-color: var(--color-leaf-500);
+  background: var(--c-band-tint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; scroll-behavior: auto !important; }
+}
