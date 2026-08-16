@@ -31,11 +31,14 @@ export default function SmoothScroll() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
 
+    // Heavy, continuous inertia (designsuspect.com feel): a low lerp gives
+    // that floaty, glued-to-momentum scroll rather than a per-step ease.
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.085,
       smoothWheel: true,
-      touchMultiplier: 1.6,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+      syncTouch: true,
     });
     lenisInstance = lenis;
 

@@ -7,8 +7,8 @@ import { scrollTo, scrollToTop } from "./SmoothScroll";
 
 const links = [
   { id: "top", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "work", label: "Work" },
+  { id: "about", label: "About me" },
+  { id: "work", label: "Works" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -53,62 +53,63 @@ export default function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4"
+      className="fixed inset-x-0 top-0 z-40 px-6 py-3.5"
     >
       <nav
-        className={`flex w-full max-w-5xl items-center justify-between rounded-2xl px-4 py-3 transition-all duration-500 sm:px-6 ${
-          scrolled ? "glass shadow-2xl shadow-black/20" : "bg-transparent"
+        className={`relative mx-auto flex max-w-6xl items-center justify-center rounded-full px-4 py-2 transition-all duration-500 sm:px-6 ${
+          scrolled ? "glass shadow-lg shadow-black/5" : "bg-transparent"
         }`}
       >
-        <button onClick={() => go("top")} className="group flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 font-display text-lg font-bold text-white shadow-lg shadow-brand-500/30 transition-transform group-hover:scale-110">
-            {profile.firstName[0]}
-          </span>
-          <span className="font-display text-lg font-semibold tracking-tight">
-            {profile.firstName}
-            <span className="text-brand-400">.</span>
-          </span>
+        {/* Wordmark — sits at the left edge, out of the centred group */}
+        <button
+          onClick={() => go("top")}
+          className="absolute left-4 hidden font-display text-sm font-semibold tracking-tight lg:block"
+        >
+          {profile.firstName}
+          <span className="text-leaf-500">.</span>
         </button>
 
-        {/* Desktop links */}
-        <ul className="hidden items-center gap-1 md:flex">
+        {/* Centred links + green CTA — the reference layout */}
+        <ul className="hidden items-center gap-9 md:flex">
           {links.map((l) => (
             <li key={l.id}>
               <button
                 onClick={() => go(l.id)}
-                className={`relative rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                className={`text-[0.7rem] font-medium uppercase tracking-[0.1em] transition-colors ${
                   active === l.id ? "text-mist" : "text-mist/55 hover:text-mist"
                 }`}
               >
                 {l.label}
-                {active === l.id && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 -z-10 rounded-lg bg-veil/10"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
               </button>
             </li>
           ))}
+          <li className="ml-3">
+            <button
+              onClick={() => go("contact")}
+              className="pill-green px-5 py-2 text-[0.8rem] font-medium"
+            >
+              Get in Touch
+            </button>
+          </li>
         </ul>
 
-        <div className="flex items-center gap-2">
+        {/* Mobile: brand left, controls right */}
+        <button
+          onClick={() => go("top")}
+          className="absolute left-4 font-display text-base font-semibold tracking-tight md:hidden"
+        >
+          {profile.firstName}
+          <span className="text-leaf-500">.</span>
+        </button>
+
+        <div className="absolute right-4 flex items-center gap-2">
           <ThemeToggle />
           <button
-            onClick={() => go("contact")}
-            className="hidden items-center gap-1.5 rounded-lg bg-mist px-4 py-2 text-sm font-semibold text-ink transition-transform hover:scale-105 sm:flex"
-          >
-            Let's talk
-            <Icon name="arrowUpRight" size={16} />
-          </button>
-
-          <button
             onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-lg glass md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full glass md:hidden"
             aria-label="Toggle menu"
           >
             <Icon name={open ? "close" : "menu"} />
@@ -123,19 +124,25 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
-            className="absolute inset-x-4 top-20 rounded-2xl glass p-3 md:hidden"
+            className="mx-auto mt-3 max-w-6xl rounded-3xl glass p-3 md:hidden"
           >
             {links.map((l) => (
               <button
                 key={l.id}
                 onClick={() => go(l.id)}
-                className={`block w-full rounded-xl px-4 py-3 text-left text-base font-medium transition-colors ${
+                className={`block w-full rounded-full px-4 py-3 text-left text-sm font-medium uppercase tracking-[0.1em] transition-colors ${
                   active === l.id ? "bg-veil/10 text-mist" : "text-mist/70"
                 }`}
               >
                 {l.label}
               </button>
             ))}
+            <button
+              onClick={() => go("contact")}
+              className="pill-green mt-2 w-full px-4 py-3 text-sm font-medium"
+            >
+              Get in Touch
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

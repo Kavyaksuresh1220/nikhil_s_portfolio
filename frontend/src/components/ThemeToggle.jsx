@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 function getInitial() {
-  if (typeof document === "undefined") return "dark";
-  return document.documentElement.getAttribute("data-theme") || "dark";
+  if (typeof document === "undefined") return "light";
+  return document.documentElement.getAttribute("data-theme") || "light";
 }
 
 // Sun/moon pill that flips the whole site between the dark and paper themes.

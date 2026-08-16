@@ -80,7 +80,7 @@ export default function CursorGlow() {
         aria-hidden="true"
         style={{ left: dotX, top: dotY }}
         animate={{ scale: down ? 0.6 : hasLabel ? 0 : 1 }}
-        className="pointer-events-none fixed z-[61] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-400 md:block"
+        className="pointer-events-none fixed z-[61] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-leaf-500 md:block"
       />
     </>
   );

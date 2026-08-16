@@ -1,7 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
-import ParallaxBackground from "./components/ParallaxBackground";
 import CursorGlow from "./components/CursorGlow";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -34,7 +33,6 @@ export default function App() {
   return (
     <>
       <Preloader />
-      <ParallaxBackground />
       <CursorGlow />
       <ScrollProgress />
       <Navbar />

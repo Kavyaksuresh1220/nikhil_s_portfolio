@@ -24,6 +24,81 @@ export const profile = {
   ],
 };
 
+// ─────────────────────────────────────────────────────────────
+//  HOMEPAGE (editorial layout)
+//  Statement copy uses two conventions:
+//    *asterisks*  wrap the words that get the accent colour
+//    \n           starts a new line
+//  If a statement has no asterisks, the whole line takes the accent.
+//  accent = blue | red | green | yellow | orange | purple
+// ─────────────────────────────────────────────────────────────
+
+export const statements = [
+  {
+    id: "about",
+    label: "The person behind the pixels",
+    text: "MY *CURIOSITY* CREATES\nBETTER EXPERIENCES.",
+    accent: "blue",
+    portrait: true,
+  },
+  {
+    text: "WHEN THINGS GET\n*ANNOYING…*",
+    accent: "red",
+    portrait: true,
+    portraitLine: 1,
+  },
+  {
+    text: "WHEN THE 2PX GAP\nBOTHERS ME…",
+    accent: "green",
+    portrait: true,
+    pill: "Yes, really.",
+  },
+];
+
+export const keySkills = {
+  label: "Key skills",
+  statement: "WHAT'S NOT\nWORKING?\nLET'S *FIX IT.*",
+  accent: "yellow",
+  card: {
+    title: "Making pixels\nlook & feel right.",
+    body: "I create clean, modern interfaces that balance visual appeal with usability — backed by research, tested with real users, and polished until every interaction feels simple, engaging and easy to use.",
+  },
+};
+
+// The tool rail. `code` is the glyph shown in the chip.
+export const armoury = [
+  { name: "Figma", code: "Fi", bg: "#111110", fg: "#ffffff" },
+  { name: "Framer", code: "Fr", bg: "#111110", fg: "#ffffff" },
+  { name: "Sketch", code: "Sk", bg: "#6fc06b", fg: "#0b0b0a" },
+  { name: "Photoshop", code: "Ps", bg: "#f0241c", fg: "#ffffff" },
+  { name: "After Effects", code: "Ae", bg: "#7c3aed", fg: "#ffffff" },
+  { name: "Illustrator", code: "Ai", bg: "#f08a1f", fg: "#0b0b0a" },
+  { name: "Webflow", code: "Wf", bg: "#2b2fe8", fg: "#ffffff" },
+  { name: "Notion", code: "No", bg: "#6fc06b", fg: "#0b0b0a" },
+];
+
+export const deepDive = {
+  label: "Design\ndeep dive",
+  name: "SpaceUp",
+  subtitle: "Workspace finder app",
+  image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=900&q=80",
+  url: "https://www.behance.net/nikhils43",
+  cta: "More on Bē",
+};
+
+export const sectionCopy = {
+  works: {
+    label: "Works",
+    statement: "WHERE IDEAS\nBECOME *DESIGN.*",
+    accent: "orange",
+  },
+  contact: {
+    label: "Contact",
+    statement: "LET'S MAKE\nSOMETHING *TOGETHER.*",
+    accent: "green",
+  },
+};
+
 export const stats = [
   { value: "4+", label: "Years designing" },
   { value: "30+", label: "Projects shipped" },

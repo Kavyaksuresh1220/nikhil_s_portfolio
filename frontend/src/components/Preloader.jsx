@@ -45,22 +45,19 @@ export default function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-ink"
+          className="hero-editorial fixed inset-0 z-[100] flex flex-col items-center justify-center"
           exit={{ y: "-100%" }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          {/* soft aurora behind the loader */}
-          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[36rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/20 blur-[130px]" />
-
           <div className="relative overflow-hidden">
             <motion.h1
               initial={{ y: "110%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-              className="font-display text-5xl font-bold tracking-tight sm:text-7xl"
+              className="font-display text-5xl font-bold uppercase tracking-tight sm:text-7xl"
             >
               {words[0]}{" "}
-              <span className="text-gradient">{words.slice(1).join(" ")}</span>
+              <span className="text-leaf-500">{words.slice(1).join(" ")}</span>
             </motion.h1>
           </div>
 
@@ -74,15 +71,15 @@ export default function Preloader() {
           </motion.p>
 
           {/* Counter */}
-          <div className="absolute bottom-10 right-8 font-display text-6xl font-bold text-mist/80 sm:text-8xl">
+          <div className="absolute bottom-10 right-8 font-display text-6xl font-bold sm:text-8xl">
             {count}
-            <span className="text-brand-400">%</span>
+            <span className="text-leaf-500">%</span>
           </div>
 
           {/* Progress line */}
-          <div className="absolute bottom-0 left-0 h-[3px] w-full bg-veil/5">
+          <div className="absolute bottom-0 left-0 h-[3px] w-full bg-veil/10">
             <motion.div
-              className="h-full bg-gradient-to-r from-brand-500 via-accent-400 to-punch-400"
+              className="h-full bg-leaf-500"
               style={{ width: `${count}%` }}
             />
           </div>
