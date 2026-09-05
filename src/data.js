@@ -224,15 +224,65 @@ export const experience = [
   },
 ];
 
+export const highlights = "Some highlights from the past year";
+
+// Journal / writing entries
+export const journal = [
+  {
+    isNew: true,
+    title: "Bridging the gap between designers & developers",
+    excerpt:
+      "Practical tips for UI/UX designers to keep visual intent intact while staying friendly to how things actually get built.",
+    date: "Aug 12, 2026",
+    tags: ["Design", "Handoff"],
+  },
+  {
+    isNew: true,
+    title: "The quiet power of user research",
+    excerpt:
+      "Good design isn't guesswork. Research reveals the needs, behaviours and motivations behind every tap — so you build things people actually reach for.",
+    date: "Jul 28, 2026",
+    tags: ["Research"],
+  },
+  {
+    isNew: false,
+    title: "Motion as meaning, not decoration",
+    excerpt:
+      "Animation should explain, not entertain. A look at how the right transition can make a complex flow feel obvious.",
+    date: "Jun 09, 2026",
+    tags: ["Motion"],
+  },
+];
+
 export const testimonials = [
   {
-    quote: "Nikhil has a rare gift for motion and detail. Every screen he touched felt alive and effortless to use.",
+    quote:
+      "Nikhil has a rare gift for motion and detail. Every screen he touched felt alive and effortless to use.",
     author: "Ava Chen",
     title: "Founder, Aura",
   },
   {
-    quote: "The most thoughtful designer we've worked with. He turned a messy idea into a product our users adore.",
+    quote:
+      "The most thoughtful designer we've worked with. He turned a messy idea into a product our users adore.",
     author: "Marco Silva",
     title: "Product Lead, Fintrack",
+  },
+  {
+    quote:
+      "Fast, precise and endlessly curious. Nikhil owns the problem end to end and makes hard decisions look easy.",
+    author: "Priya Nair",
+    title: "PM, Bloom",
+  },
+  {
+    quote:
+      "He blends storytelling with real usability. Our activation numbers jumped the week his redesign shipped.",
+    author: "Daniel Roy",
+    title: "Head of Growth, Pulse",
+  },
+  {
+    quote:
+      "A designer who speaks fluent developer. Handoffs were the smoothest I've had in a decade of building.",
+    author: "Sara Okonkwo",
+    title: "Eng Lead, Nomad",
   },
 ];
