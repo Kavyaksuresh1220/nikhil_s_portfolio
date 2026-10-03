@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Reveal from "../components/Reveal";
 import Magnetic from "../components/Magnetic";
 import LiveClock from "../components/LiveClock";
@@ -7,8 +8,6 @@ import {
   profile,
   projects,
   journal,
-  testimonials,
-  highlights,
 } from "../data";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -62,8 +61,8 @@ function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 0.7 }}
       >
-        Making sense of pixels, one screen at a time
-        <span aria-hidden="true"> 👾</span>
+        A UI/UX designer turning complex ideas into simple, intuitive
+        experiences people love to use.
       </motion.p>
 
       <div className="hero-foot">
@@ -74,32 +73,13 @@ function Hero() {
   );
 }
 
-// ── Highlights strip ──────────────────────────────────────────
-function Highlights() {
-  return (
-    <section className="wrap section" style={{ paddingBlock: "3.5rem" }}>
-      <Reveal>
-        <p className="eyebrow" style={{ textAlign: "center" }}>
-          {highlights}
-        </p>
-      </Reveal>
-    </section>
-  );
-}
-
 // ── About ─────────────────────────────────────────────────────
 function About() {
   return (
     <section id="about" className="wrap section">
       <hr className="hair" />
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-          gap: "2.5rem",
-          marginTop: "3rem",
-          alignItems: "start",
-        }}
+        style={{ marginTop: "3rem" }}
         className="about-grid"
       >
         <Reveal>
@@ -131,42 +111,79 @@ function About() {
 }
 
 // ── Work ──────────────────────────────────────────────────────
+const WORK_INITIAL = 4;
+
+function ProjectCard({ p }) {
+  return (
+    <a className="proj" href={profile.socials?.[0]?.url || "#"} target="_blank" rel="noreferrer" data-cursor="View" style={{ height: "100%" }}>
+      <div className="proj-shot">
+        <img src={p.image} alt={p.title} loading="lazy" />
+      </div>
+      <div className="proj-body">
+        <p className="proj-cat">{p.category}</p>
+        <h3 className="proj-title">{p.title}</h3>
+        <p className="proj-desc">{p.desc}</p>
+        <div className="tags">
+          {p.tags.map((t) => (
+            <span className="tag" key={t}>{t}</span>
+          ))}
+        </div>
+      </div>
+    </a>
+  );
+}
+
 function Work() {
-  const shown = projects.slice(0, 6);
+  const [expanded, setExpanded] = useState(false);
+  const first = projects.slice(0, WORK_INITIAL);
+  const rest = projects.slice(WORK_INITIAL);
+
+  const toggle = () => {
+    if (expanded) scrollTo("#work", -100);
+    setExpanded((v) => !v);
+  };
+
   return (
     <section id="work" className="wrap section">
       <Reveal>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1rem" }}>
-          <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 className="section-head">
-              Work<span className="accent">.</span>
-            </h2>
-            <p className="section-lead">A selection of recent projects.</p>
-          </div>
-        </div>
+        <p className="eyebrow">Selected work</p>
+        <h2 className="section-head">
+          Work<span className="accent">.</span>
+        </h2>
+        <p className="section-lead">A selection of recent projects.</p>
       </Reveal>
 
       <div className="works-grid" style={{ marginTop: "3rem" }}>
-        {shown.map((p, i) => (
-          <Reveal key={p.title} delay={(i % 3) * 0.08} as="article">
-            <a className="proj" href={profile.socials?.[0]?.url || "#"} target="_blank" rel="noreferrer" data-cursor="View" style={{ height: "100%" }}>
-              <div className="proj-shot">
-                <img src={p.image} alt={p.title} loading="lazy" />
-              </div>
-              <div className="proj-body">
-                <h3 className="proj-title">{p.title}</h3>
-                <p className="proj-desc">{p.desc}</p>
-                <div className="tags">
-                  {p.tags.map((t) => (
-                    <span className="tag" key={t}>{t}</span>
-                  ))}
-                </div>
-              </div>
-            </a>
+        {first.map((p, i) => (
+          <Reveal key={p.title} delay={(i % 2) * 0.08} as="article">
+            <ProjectCard p={p} />
           </Reveal>
         ))}
+        <AnimatePresence initial={false}>
+          {expanded &&
+            rest.map((p, i) => (
+              <motion.article
+                key={p.title}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 12 }}
+                transition={{ duration: 0.5, ease, delay: i * 0.08 }}
+              >
+                <ProjectCard p={p} />
+              </motion.article>
+            ))}
+        </AnimatePresence>
       </div>
+
+      {rest.length > 0 && (
+        <div style={{ marginTop: "2.5rem", textAlign: "center" }}>
+          <Magnetic>
+            <button type="button" className="link-btn" onClick={toggle} aria-expanded={expanded} data-cursor={expanded ? "Less" : "More"}>
+              {expanded ? "Show less" : "Read more"} <Arrow />
+            </button>
+          </Magnetic>
+        </div>
+      )}
     </section>
   );
 }
@@ -200,52 +217,6 @@ function Journal() {
             </a>
           </Reveal>
         ))}
-      </div>
-    </section>
-  );
-}
-
-// ── Testimonials marquee ──────────────────────────────────────
-function TestimonialCard({ t }) {
-  return (
-    <figure className="tcard">
-      <p>“{t.quote}”</p>
-      <figcaption>
-        <div className="who">{t.author}</div>
-        <div className="whorole">{t.title}</div>
-      </figcaption>
-    </figure>
-  );
-}
-
-function Testimonials() {
-  const row = [...testimonials, ...testimonials];
-  return (
-    <section className="section">
-      <div className="wrap">
-        <Reveal>
-          <p className="eyebrow">Kind words</p>
-          <h2 className="section-head">
-            People I've worked with<span className="accent">.</span>
-          </h2>
-        </Reveal>
-      </div>
-
-      <div style={{ marginTop: "2.5rem" }}>
-        <div className="tmar">
-          <div className="tmar-track animate-marquee marquee-track">
-            {row.map((t, i) => (
-              <TestimonialCard key={`a-${i}`} t={t} />
-            ))}
-          </div>
-        </div>
-        <div className="tmar">
-          <div className="tmar-track animate-marquee-reverse marquee-track">
-            {row.map((t, i) => (
-              <TestimonialCard key={`b-${i}`} t={t} />
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -304,11 +275,9 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Highlights />
       <About />
       <Work />
       <Journal />
-      <Testimonials />
       <Contact />
     </>
   );

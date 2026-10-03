@@ -10,7 +10,7 @@ export const profile = {
   role: "UI/UX Designer",
   tagline: "Designing screens that feel alive",
   location: "Pathanamthitta, India",
-  email: "hello@nikhils.design",
+  email: "nikhiluidesigns@gmail.com",
   available: true,
   // Demo avatar from the internet — swap for your own photo
   avatar: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&q=80",
@@ -144,62 +144,43 @@ export const services = [
   },
 ];
 
+// The first 4 are shown in the Work section; the rest appear after "Read more".
+// Images are placeholders — swap them for real project shots.
 export const projects = [
   {
-    title: "Aura",
-    category: "Meditation App",
-    year: "2026",
-    desc: "A calming meditation experience with soft gradients, guided sessions and an animated breathing companion.",
-    tags: ["Mobile App", "UI/UX", "Motion"],
-    accent: "from-brand-500 to-accent-500",
+    title: "Voluntee",
+    category: "Volunteering App",
+    desc: "A volunteering app that connects people with local causes — discover opportunities, sign up in a few taps and track the impact you make.",
+    tags: ["Mobile App", "UI/UX", "Community"],
+    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1000&q=80",
+  },
+  {
+    title: "Widex",
+    category: "Hearing Care Experience",
+    desc: "A calm, accessible experience for hearing care — clear typography, simple controls and flows designed for every age group.",
+    tags: ["App Design", "Accessibility", "UI/UX"],
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1000&q=80",
+  },
+  {
+    title: "Golaro",
+    category: "Product Design",
+    desc: "A clean, modern product experience built around clear user flows, a consistent visual system and thoughtful micro-interactions.",
+    tags: ["Mobile App", "UI Design", "Prototyping"],
     image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1000&q=80",
-    featured: true,
   },
   {
-    title: "Fintrack",
-    category: "Finance Dashboard",
-    year: "2025",
-    desc: "A clean fintech dashboard with real-time charts, smart budgeting and an approachable data visual language.",
-    tags: ["Web App", "Dashboard", "Data Viz"],
-    accent: "from-punch-500 to-brand-500",
+    title: "Prolink",
+    category: "Professional Networking",
+    desc: "A networking platform that makes it easy to find the right people, build meaningful connections and grow your career.",
+    tags: ["Web App", "UX Research", "UI/UX"],
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&q=80",
-    featured: true,
   },
   {
-    title: "Bloom",
-    category: "E-commerce Redesign",
-    year: "2025",
-    desc: "A boutique storefront redesign focused on immersive product galleries and a frictionless checkout.",
-    tags: ["Web", "E-commerce", "Branding"],
-    accent: "from-accent-500 to-brand-400",
-    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1000&q=80",
-  },
-  {
-    title: "Nomad",
-    category: "Travel App",
-    year: "2024",
-    desc: "A travel companion with story-driven itineraries, map exploration and playful illustrated states.",
-    tags: ["Mobile App", "Illustration"],
-    accent: "from-brand-400 to-punch-400",
-    image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1000&q=80",
-  },
-  {
-    title: "Pulse",
-    category: "Health Tracker",
-    year: "2024",
-    desc: "A wellness tracker with habit streaks, a motion-driven progress ring and gentle daily nudges.",
-    tags: ["Mobile App", "UI/UX", "Motion"],
-    accent: "from-punch-400 to-accent-500",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1000&q=80",
-  },
-  {
-    title: "Craft",
-    category: "Design System",
-    year: "2023",
-    desc: "A scalable design system with tokens, accessible components and thorough documentation.",
-    tags: ["Design System", "Figma"],
-    accent: "from-brand-500 to-punch-500",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1000&q=80",
+    title: "SpaceUp",
+    category: "Workspace Finder App",
+    desc: "A workspace finder app to discover, compare and book coworking spaces and meeting rooms nearby — quickly and without friction.",
+    tags: ["Mobile App", "UI/UX", "Booking"],
+    image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=1000&q=80",
   },
 ];
 
@@ -224,65 +205,21 @@ export const experience = [
   },
 ];
 
-export const highlights = "Some highlights from the past year";
-
 // Journal / writing entries
 export const journal = [
   {
     isNew: true,
-    title: "Bridging the gap between designers & developers",
-    excerpt:
-      "Practical tips for UI/UX designers to keep visual intent intact while staying friendly to how things actually get built.",
-    date: "Aug 12, 2026",
-    tags: ["Design", "Handoff"],
+    title: "When AI Designs for Us, What Happens to Our Creativity?",
+    excerpt: "AI has made designing much easier.",
+    date: "Aug 14",
+    tags: ["AI", "Design"],
   },
   {
     isNew: true,
-    title: "The quiet power of user research",
+    title: "Still Figuring Out What Good Design Means",
     excerpt:
-      "Good design isn't guesswork. Research reveals the needs, behaviours and motivations behind every tap — so you build things people actually reach for.",
-    date: "Jul 28, 2026",
-    tags: ["Research"],
-  },
-  {
-    isNew: false,
-    title: "Motion as meaning, not decoration",
-    excerpt:
-      "Animation should explain, not entertain. A look at how the right transition can make a complex flow feel obvious.",
-    date: "Jun 09, 2026",
-    tags: ["Motion"],
-  },
-];
-
-export const testimonials = [
-  {
-    quote:
-      "Nikhil has a rare gift for motion and detail. Every screen he touched felt alive and effortless to use.",
-    author: "Ava Chen",
-    title: "Founder, Aura",
-  },
-  {
-    quote:
-      "The most thoughtful designer we've worked with. He turned a messy idea into a product our users adore.",
-    author: "Marco Silva",
-    title: "Product Lead, Fintrack",
-  },
-  {
-    quote:
-      "Fast, precise and endlessly curious. Nikhil owns the problem end to end and makes hard decisions look easy.",
-    author: "Priya Nair",
-    title: "PM, Bloom",
-  },
-  {
-    quote:
-      "He blends storytelling with real usability. Our activation numbers jumped the week his redesign shipped.",
-    author: "Daniel Roy",
-    title: "Head of Growth, Pulse",
-  },
-  {
-    quote:
-      "A designer who speaks fluent developer. Handoffs were the smoothest I've had in a decade of building.",
-    author: "Sara Okonkwo",
-    title: "Eng Lead, Nomad",
+      "When I first started UI/UX, I was obsessed with making everything look perfect.",
+    date: "Aug 14",
+    tags: ["UI/UX", "Craft"],
   },
 ];
