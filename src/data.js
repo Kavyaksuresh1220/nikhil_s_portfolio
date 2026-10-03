@@ -18,9 +18,9 @@ export const profile = {
   resumeUrl: "#",
   socials: [
     { label: "Behance", handle: "nikhils43", url: "https://www.behance.net/nikhils43" },
-    { label: "Dribbble", handle: "nikhils", url: "https://dribbble.com" },
-    { label: "LinkedIn", handle: "in/nikhils", url: "https://linkedin.com" },
-    { label: "Instagram", handle: "@nikhil.designs", url: "https://instagram.com" },
+    { label: "Medium", handle: "@nikhiluidesigns", url: "https://medium.com/@nikhiluidesigns" },
+    { label: "LinkedIn", handle: "in/nikhil-s-142113227", url: "https://www.linkedin.com/in/nikhil-s-142113227" },
+    { label: "Instagram", handle: "@who_isnikk", url: "https://www.instagram.com/who_isnikk" },
   ],
 };
 
@@ -211,6 +211,7 @@ export const journal = [
     isNew: true,
     title: "When AI Designs for Us, What Happens to Our Creativity?",
     excerpt: "AI has made designing much easier.",
+    url: "https://medium.com/@nikhiluidesigns/when-ai-designs-for-us-what-happens-to-our-creativity-69de1f917896",
     date: "Aug 14",
     tags: ["AI", "Design"],
   },
@@ -219,6 +220,7 @@ export const journal = [
     title: "Still Figuring Out What Good Design Means",
     excerpt:
       "When I first started UI/UX, I was obsessed with making everything look perfect.",
+    url: "https://medium.com/@nikhiluidesigns",
     date: "Aug 14",
     tags: ["UI/UX", "Craft"],
   },

@@ -203,7 +203,7 @@ function Journal() {
       <div style={{ marginTop: "2.5rem" }}>
         {journal.map((j, i) => (
           <Reveal key={j.title} delay={i * 0.05}>
-            <a className="journal-item" href="#journal" data-cursor="Read">
+            <a className="journal-item" href={j.url} target="_blank" rel="noreferrer" data-cursor="Read">
               <div>
                 {j.isNew && <span className="pill-new">New</span>}
                 <h3 className="journal-title">{j.title}</h3>
@@ -213,6 +213,9 @@ function Journal() {
                 {j.date}
                 <br />
                 {j.tags.join(" · ")}
+                <span className="journal-more">
+                  Read more <Arrow />
+                </span>
               </div>
             </a>
           </Reveal>

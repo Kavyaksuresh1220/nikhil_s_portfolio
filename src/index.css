@@ -962,6 +962,21 @@ button.link-btn { background: transparent; color: var(--c-fg); font: inherit; fo
 .journal-title { font-family: var(--font-serif); font-weight: 600; font-size: clamp(1.15rem, 2.2vw, 1.6rem); margin: 0.4rem 0 0.5rem; }
 .journal-excerpt { font-size: 0.92rem; line-height: 1.65; opacity: 0.68; max-width: 60ch; margin: 0; }
 .journal-meta { text-align: right; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.55; white-space: nowrap; }
+.journal-more {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--c-fg);
+  font-family: var(--font-sans, inherit);
+  font-size: 0.78rem; letter-spacing: 0; text-transform: none; font-weight: 500;
+  color: var(--c-fg);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+.journal-meta { display: flex; flex-direction: column; align-items: flex-end; opacity: 1; color: color-mix(in srgb, var(--c-fg) 55%, transparent); }
+.journal-item:hover .journal-more { background: var(--c-fg); color: var(--c-bg); }
+.journal-item:hover .journal-more .arr { transform: translateX(3px); }
+.journal-more .arr { transition: transform 0.25s ease; }
 .pill-new {
   display: inline-block;
   font-family: var(--font-mono);
@@ -972,7 +987,7 @@ button.link-btn { background: transparent; color: var(--c-fg); font: inherit; fo
 }
 @media (max-width: 560px) {
   .journal-item { grid-template-columns: 1fr; }
-  .journal-meta { text-align: left; }
+  .journal-meta { text-align: left; align-items: flex-start; }
 }
 
 /* ── Contact ───────────────────────────────────────────────────*/
