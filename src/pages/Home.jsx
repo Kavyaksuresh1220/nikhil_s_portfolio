@@ -1,110 +1,92 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 import Reveal from "../components/Reveal";
-import Magnetic from "../components/Magnetic";
 import LiveClock from "../components/LiveClock";
 import { scrollTo } from "../components/SmoothScroll";
-import {
-  profile,
-  projects,
-  journal,
-} from "../data";
+import { Accent, Arrow, CircleArrow, IconChip, Polaroid, ease } from "../components/ui";
+import { profile, photos, aboutTeaser, projects, journal } from "../data";
 
-const ease = [0.22, 1, 0.36, 1];
-
-function Arrow() {
-  return (
-    <svg className="arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
+const RULER = [50, 100, 150, 200, 300, 400, 500, 600, 650, 700, 750, 800, 850, 900];
+const TAG_COLORS = ["tag-purple", "tag-pink", "tag-orange"];
 
 // ── Hero ──────────────────────────────────────────────────────
 function Hero() {
-  const first = profile.firstName || profile.name.split(" ")[0];
+  const first = profile.firstName;
   return (
-    <header id="top" className="hero wrap">
-      <motion.div
-        className="hero-orb"
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, ease, delay: 0.1 }}
-      />
+    <header id="top" className="band hero">
+      <div className="shell hero-shell">
+        <div className="ruler" aria-hidden="true">
+          {RULER.map((t) => (
+            <span key={t}>{t}</span>
+          ))}
+        </div>
 
-      <h1 className="hero-title">
-        {"Hi, I'm ".split("").map((c, i) => (
-          <motion.span
-            key={i}
-            style={{ display: "inline-block", whiteSpace: "pre" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease, delay: 0.25 + i * 0.03 }}
-          >
-            {c}
-          </motion.span>
-        ))}
-        <motion.span
-          style={{ display: "inline-block" }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease, delay: 0.55 }}
+        <motion.div
+          className="hero-avatar"
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, ease, delay: 0.15 }}
         >
-          {first}
-          <span className="dot-green">.</span>
-        </motion.span>
-      </h1>
+          <img src={photos.portrait} alt={profile.name} />
+        </motion.div>
 
-      <motion.p
-        className="hero-sub"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease, delay: 0.7 }}
-      >
-        A UI/UX designer turning complex ideas into simple, intuitive
-        experiences people love to use.
-      </motion.p>
+        <h1 className="hero-title">
+          {`Hi, I'm ${first}`.split("").map((c, i) => (
+            <motion.span
+              key={i}
+              style={{ display: "inline-block", whiteSpace: "pre" }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease, delay: 0.3 + i * 0.03 }}
+            >
+              {c}
+            </motion.span>
+          ))}
+          <span className="green">.</span>
+        </h1>
 
-      <div className="hero-foot">
-        <span>{profile.location}</span>
-        <LiveClock />
+        <motion.p
+          className="hero-sub"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease, delay: 0.75 }}
+        >
+          {profile.tagline}
+        </motion.p>
+      </div>
+
+      <div className="band-line">
+        <div className="shell hero-foot">
+          <span>{profile.location}</span>
+          <LiveClock />
+        </div>
       </div>
     </header>
   );
 }
 
-// ── About ─────────────────────────────────────────────────────
-function About() {
+// ── About teaser ──────────────────────────────────────────────
+function AboutTeaser() {
+  const area = useRef(null);
   return (
-    <section id="about" className="wrap section">
-      <hr className="hair" />
-      <div
-        style={{ marginTop: "3rem" }}
-        className="about-grid"
-      >
-        <Reveal>
-          <p className="eyebrow">About me</p>
-          <h2 className="about-statement" style={{ marginTop: "1rem" }}>
-            I design seamless experiences that feel <span className="accent">alive</span>.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="about-body dropcap">
-            Okay, so design wasn't exactly "the plan." I started out chasing
-            engineering — the sensible, expected route — and honestly, I'm glad
-            I did. It gave me a foundation, and then it quietly led me here.
-          </p>
-          <p className="about-body" style={{ marginTop: "1.25rem" }}>
-            {profile.bio}
-          </p>
-          <div style={{ marginTop: "1.75rem" }}>
-            <Magnetic>
-              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("#contact", -100); }} className="link-btn" data-cursor="Read">
-                Read more about me <Arrow />
-              </a>
-            </Magnetic>
-          </div>
-        </Reveal>
+    <section className="band">
+      <div className="shell">
+        <div className="sheet-grey teaser" ref={area}>
+          <Polaroid src={photos.hills} alt="Nikhil in the misty hills" rotate={-7} className="teaser-photo teaser-photo-left" constraints={area} />
+          <Polaroid src={photos.desk} alt="Nikhil at his desk in the studio" rotate={4} className="teaser-photo teaser-photo-right" constraints={area} delay={0.1} />
+
+          <Reveal className="teaser-body">
+            <h2 className="teaser-heading">
+              <Accent text={aboutTeaser.heading} />
+            </h2>
+            <p className="teaser-lead dropcap">{aboutTeaser.lead}</p>
+            <p className="teaser-fade">{aboutTeaser.fade}</p>
+            <Link to="/about" className="pill-btn pill-dark">
+              Read more about me <CircleArrow />
+            </Link>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
@@ -113,22 +95,42 @@ function About() {
 // ── Work ──────────────────────────────────────────────────────
 const WORK_INITIAL = 4;
 
-function ProjectCard({ p }) {
+function Cover({ p }) {
   return (
-    <a className="proj" href={profile.socials?.[0]?.url || "#"} target="_blank" rel="noreferrer" data-cursor="View" style={{ height: "100%" }}>
-      <div className="proj-shot">
-        <img src={p.image} alt={p.title} loading="lazy" />
+    <div className="cover" style={{ "--glow": p.glow }}>
+      <div className="cover-inner">
+        <div className="cover-text">
+          <span className="cover-logo">{p.title[0]}</span>
+          <p className="cover-title">{p.title}</p>
+          <p className="cover-tagline">{p.tagline}</p>
+        </div>
+        <div className="cover-phones" aria-hidden="true">
+          <span className="phone phone-back" />
+          <span className="phone phone-front">
+            <i /><i /><i /><i />
+          </span>
+        </div>
       </div>
-      <div className="proj-body">
-        <p className="proj-cat">{p.category}</p>
-        <h3 className="proj-title">{p.title}</h3>
-        <p className="proj-desc">{p.desc}</p>
+    </div>
+  );
+}
+
+function ProjectRow({ p }) {
+  return (
+    <a className="work-row" href={profile.socials.find((s) => s.label === "Behance").url} target="_blank" rel="noreferrer">
+      <div className="work-info">
+        <h3 className="work-name">
+          <span className="work-logo" style={{ background: p.glow }}>{p.title[0]}</span>
+          {p.title}
+        </h3>
+        <p className="work-desc">{p.desc}</p>
         <div className="tags">
-          {p.tags.map((t) => (
-            <span className="tag" key={t}>{t}</span>
+          {p.tags.map((t, i) => (
+            <span className={`tag ${TAG_COLORS[i % 3]}`} key={t}>{t}</span>
           ))}
         </div>
       </div>
+      <Cover p={p} />
     </a>
   );
 }
@@ -139,149 +141,125 @@ function Work() {
   const rest = projects.slice(WORK_INITIAL);
 
   const toggle = () => {
-    if (expanded) scrollTo("#work", -100);
+    if (expanded) scrollTo("#work", -110);
     setExpanded((v) => !v);
   };
 
   return (
-    <section id="work" className="wrap section">
-      <Reveal>
-        <p className="eyebrow">Selected work</p>
-        <h2 className="section-head">
-          Work<span className="accent">.</span>
-        </h2>
-        <p className="section-lead">A selection of recent projects.</p>
-      </Reveal>
-
-      <div className="works-grid" style={{ marginTop: "3rem" }}>
-        {first.map((p, i) => (
-          <Reveal key={p.title} delay={(i % 2) * 0.08} as="article">
-            <ProjectCard p={p} />
+    <section id="work" className="band">
+      <div className="shell">
+        <div className="section-intro">
+          <Reveal>
+            <IconChip name="code" />
+            <h2 className="section-title">
+              <span className="green">Work.</span>
+              <br />
+              <span className="muted">A selection of recent projects.</span>
+            </h2>
           </Reveal>
-        ))}
-        <AnimatePresence initial={false}>
-          {expanded &&
-            rest.map((p, i) => (
-              <motion.article
-                key={p.title}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.5, ease, delay: i * 0.08 }}
-              >
-                <ProjectCard p={p} />
-              </motion.article>
-            ))}
-        </AnimatePresence>
+        </div>
       </div>
 
-      {rest.length > 0 && (
-        <div style={{ marginTop: "2.5rem", textAlign: "center" }}>
-          <Magnetic>
-            <button type="button" className="link-btn" onClick={toggle} aria-expanded={expanded} data-cursor={expanded ? "Less" : "More"}>
-              {expanded ? "Show less" : "Read more"} <Arrow />
-            </button>
-          </Magnetic>
+      <div className="band-line">
+        <div className="shell">
+          {first.map((p) => (
+            <Reveal key={p.title}>
+              <ProjectRow p={p} />
+            </Reveal>
+          ))}
+          <AnimatePresence initial={false}>
+            {expanded &&
+              rest.map((p, i) => (
+                <motion.div
+                  key={p.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.5, ease, delay: i * 0.08 }}
+                >
+                  <ProjectRow p={p} />
+                </motion.div>
+              ))}
+          </AnimatePresence>
+
+          {rest.length > 0 && (
+            <div className="work-more">
+              <button type="button" className="pill-btn pill-green" onClick={toggle} aria-expanded={expanded}>
+                {expanded ? "Show less" : "Read more"} <CircleArrow />
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }
 
-// ── Journal ───────────────────────────────────────────────────
+// ── Writing ───────────────────────────────────────────────────
 function Journal() {
   return (
-    <section id="journal" className="wrap section">
-      <Reveal>
-        <p className="eyebrow">From the journal</p>
-        <h2 className="section-head">
-          Writing<span className="accent">.</span>
-        </h2>
-        <p className="section-lead">Ideas, notes and thoughts on craft.</p>
-      </Reveal>
-
-      <div style={{ marginTop: "2.5rem" }}>
-        {journal.map((j, i) => (
-          <Reveal key={j.title} delay={i * 0.05}>
-            <a className="journal-item" href={j.url} target="_blank" rel="noreferrer" data-cursor="Read">
-              <div>
-                {j.isNew && <span className="pill-new">New</span>}
-                <h3 className="journal-title">{j.title}</h3>
-                <p className="journal-excerpt">{j.excerpt}</p>
-              </div>
-              <div className="journal-meta">
-                {j.date}
-                <br />
-                {j.tags.join(" · ")}
-                <span className="journal-more">
-                  Read more <Arrow />
-                </span>
-              </div>
-            </a>
+    <section id="journal" className="band">
+      <div className="shell split">
+        <div className="split-side">
+          <Reveal>
+            <IconChip name="pen" />
+            <h2 className="section-title">
+              <span className="green">Writing.</span>
+              <br />
+              <span className="muted">Ideas and thoughts.</span>
+            </h2>
+            <p className="updated">Last updated {journal.updated}</p>
           </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
+        </div>
 
-// ── Contact + footer ──────────────────────────────────────────
-function Contact() {
-  return (
-    <section id="contact" className="wrap section">
-      <hr className="hair" />
-      <div style={{ marginTop: "3.5rem", textAlign: "center" }}>
-        <Reveal>
-          <p className="eyebrow">Get in touch</p>
-          <h2 className="contact-big" style={{ marginTop: "1rem" }}>
-            Let's make<br />something <span className="dot-green">together.</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p style={{ marginTop: "1.5rem", opacity: 0.65, fontSize: "1.05rem" }}>
-            Have a project in mind, or just want to say hi? Drop me a line at{" "}
-            <a href={`mailto:${profile.email}`} className="contact-mail" data-cursor="Mail">
-              {profile.email}
-            </a>
-          </p>
-          <div style={{ marginTop: "2rem", display: "inline-flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
-            <Magnetic>
-              <a href={`mailto:${profile.email}`} className="link-btn link-solid" data-cursor="Say hi">
-                Say hello <Arrow />
+        <div className="split-main posts">
+          {journal.posts.map((j, i) => (
+            <Reveal key={j.title} delay={i * 0.06}>
+              <a className="post" href={j.url} target="_blank" rel="noreferrer">
+                <span className="post-thumb" aria-hidden="true">
+                  {j.glyph}
+                  {j.isNew && <span className="post-new">New</span>}
+                </span>
+                <div className="post-body">
+                  <h3 className="post-title">{j.title}</h3>
+                  <p className="post-excerpt">{j.excerpt}</p>
+                  <div className="post-foot">
+                    <div className="chips">
+                      <span className="chip">{j.date}</span>
+                      {j.tags.map((t) => (
+                        <span className="chip" key={t}>{t}</span>
+                      ))}
+                    </div>
+                    <span className="post-more">
+                      Read more <Arrow size={13} />
+                    </span>
+                  </div>
+                </div>
               </a>
-            </Magnetic>
-            <Magnetic>
-              <a href={profile.resumeUrl || "#"} className="link-btn" data-cursor="Resume">
-                Resume
-              </a>
-            </Magnetic>
-          </div>
-        </Reveal>
-      </div>
-
-      <footer className="footer" style={{ marginTop: "5rem" }}>
-        <span>© {new Date().getFullYear()} {profile.name}</span>
-        <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-          {profile.socials.map((s) => (
-            <a key={s.label} href={s.url} target="_blank" rel="noreferrer">
-              {s.label}
-            </a>
+            </Reveal>
           ))}
         </div>
-        <span>{profile.location}</span>
-      </footer>
+      </div>
     </section>
   );
 }
 
 export default function Home() {
+  const { state } = useLocation();
+
+  // Arriving from another page via a nav link like "Work" → scroll there.
+  useEffect(() => {
+    if (!state?.scrollTo) return;
+    const id = setTimeout(() => scrollTo(state.scrollTo, -110), 80);
+    return () => clearTimeout(id);
+  }, [state]);
+
   return (
     <>
       <Hero />
-      <About />
+      <AboutTeaser />
       <Work />
       <Journal />
-      <Contact />
     </>
   );
 }

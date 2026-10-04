@@ -5,8 +5,8 @@ function getInitial() {
   return document.documentElement.getAttribute("data-theme") || "light";
 }
 
-// "Lights on·off" pill fixed to the bottom-left — flips the whole paper
-// theme between light and dark.
+// Small switch fixed to the bottom-left — flips the site between the light
+// and dark theme.
 export default function LightsToggle() {
   const [theme, setTheme] = useState(getInitial);
 
@@ -26,13 +26,11 @@ export default function LightsToggle() {
     <button
       className="lights"
       onClick={toggle}
-      data-cursor=""
       aria-label={isDark ? "Turn the lights on" : "Turn the lights off"}
     >
       <span className="sw">
         <span className="knob" />
       </span>
-      Lights {isDark ? "off" : "on"}
     </button>
   );
 }
